@@ -4,6 +4,7 @@ from PIL import Image
 NO_OF_LEDs = 256
 DIN_PIN = 6
 
+# path to your image
 open_image = PIL.Image.open('heart.png')
 
 width, height = open_image.size
@@ -21,7 +22,6 @@ for n_height in height_range:
         rgb_pixel_value = read_image_rgb.getpixel((n_width, n_height))
         print(str(n_width) + 'x' + str(n_height))
         color_list.append('0x' + str('%02x%02x%02x' % rgb_pixel_value))
-
 
 a = 0
 temp_list = []
@@ -49,18 +49,15 @@ for element in color_list:
         b = 0
 forward_txt.close()
 
-
 backward_lines = []
 with open("temp/backward.txt") as f:
     for line in f:
         backward_lines.append(line)
 
-
 forward_lines = []
 with open("temp/forward.txt") as f:
     for line in f:
         forward_lines.append(line)
-
 
 for i in range(1, len(backward_lines), 2):
     backward_lines[i] = forward_lines[i]
@@ -100,5 +97,3 @@ matrix_ino.write('}')
 matrix_ino.write('\n\n\n')
 matrix_ino.write('void loop() { \n')
 matrix_ino.write('}; \n')
-
-
