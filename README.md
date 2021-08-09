@@ -5,3 +5,8 @@ What only you have to do is set path for your image and run script. Next you wil
 
 # Prerequisites
 * installed FastLED library in Arduino IDE
+
+# Support
+* static images
+* animations from .gif
+* mirrored image displayed on matrix
