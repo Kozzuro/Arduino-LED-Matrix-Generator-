@@ -10,7 +10,7 @@ def stactic_generator():
     # SETUP END #
 
     width, height = open_image.size
-    print(str(width) + 'x' + str(height))
+    # print(str(width) + 'x' + str(height))
 
     read_image_rgb = open_image.convert("RGB")
 
@@ -22,7 +22,7 @@ def stactic_generator():
     for n_height in height_range:
         for n_width in width_range:
             rgb_pixel_value = read_image_rgb.getpixel((n_width, n_height))
-            print(str(n_width) + 'x' + str(n_height))
+            # print(str(n_width) + 'x' + str(n_height))
             color_list.append('0x' + str('%02x%02x%02x' % rgb_pixel_value))
 
     a = 0
@@ -61,6 +61,17 @@ def stactic_generator():
         for line in f:
             forward_lines.append(line)
 
+# Uncomment if your matrix display image mirrored
+    # for i in range(1, len(forward_lines), 2):
+    #     forward_lines[i] = backward_lines[i]
+    #
+    # forward_backward_txt = open("temp/forward_backward.txt", "w")
+    # for element in forward_lines:
+    #     forward_backward_txt.write(element)
+    # forward_backward_txt.close()
+
+# Comment if you uncomment content above
+# START
     for i in range(1, len(backward_lines), 2):
         backward_lines[i] = forward_lines[i]
 
@@ -68,6 +79,7 @@ def stactic_generator():
     for element in backward_lines:
         backward_forward_txt.write(element)
     backward_forward_txt.close()
+# END
 
     # write .ino output file
     matrix_ino = open("matrix.ino", "w")
@@ -83,7 +95,7 @@ def stactic_generator():
     matrix_ino.write('const long LED_MATRIX[] PROGMEM = ')
     matrix_ino.write('\n')
     matrix_ino.write('{ \n')
-    for element in backward_lines:
+    for element in backward_lines:  # if displayed mirrored change "backward_lines" to "forward_lines"
         matrix_ino.write(element)
     matrix_ino.write('};')
     matrix_ino.write('\n\n\n')

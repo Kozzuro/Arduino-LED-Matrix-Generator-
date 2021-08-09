@@ -3,12 +3,6 @@ import animation
 from art import *
 import shutil
 
-# SETUP START #
-NO_OF_LEDs = 256
-DIN_PIN = 6
-SPEED = 100
-# SETUP END #
-
 matrix_generator = text2art("ARDUINO    MATRIX     GEN")
 print(matrix_generator)
 

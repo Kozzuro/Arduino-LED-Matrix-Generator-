@@ -20,7 +20,7 @@ def animation_generator():
             img.save("frames/frame_" + str(z) + ".png")
 
             width, height = img.size
-            print(str(width) + 'x' + str(height))
+            # print(str(width) + 'x' + str(height))
 
             read_image_rgb = img.convert("RGB")
             width_range = range(width)
@@ -31,7 +31,7 @@ def animation_generator():
             for n_height in height_range:
                 for n_width in width_range:
                     rgb_pixel_value = read_image_rgb.getpixel((n_width, n_height))
-                    print(str(n_width) + 'x' + str(n_height))
+                    # print(str(n_width) + 'x' + str(n_height))
                     color_list.append('0x' + str('%02x%02x%02x' % rgb_pixel_value))
 
             a = 0
@@ -70,6 +70,20 @@ def animation_generator():
                 for line in f:
                     forward_lines.append(line)
 
+            # Uncomment if your matrix display image mirrored
+            # for i in range(1, len(forward_lines), 2):
+            #     forward_lines[i] = backward_lines[i]
+            #
+            # forward_backward_txt = open("temp/forward_backward.txt", "w")
+            # forward_backward_txt.write("const long Frame_" + str(z) + "[] PROGMEM = \n")
+            # forward_backward_txt.write("{\n")
+            # for element in forward_lines:
+            #     forward_backward_txt.write(element)
+            # forward_backward_txt.write("}")
+            # forward_backward_txt.close()
+
+            # Comment if you uncomment content above
+            # START
             for i in range(1, len(backward_lines), 2):
                 backward_lines[i] = forward_lines[i]
 
@@ -80,6 +94,7 @@ def animation_generator():
                 backward_forward_txt.write(element)
             backward_forward_txt.write("}")
             backward_forward_txt.close()
+            # END
 
     except EOFError:
         pass
@@ -104,7 +119,7 @@ def animation_generator():
     matrix_ino.write('\n')
     matrix_ino.write('\n')
     for no_of_frames in total_frames:
-        with open("temp/backward_forward_" + str(no_of_frames) + ".txt") as f:
+        with open("temp/backward_forward_" + str(no_of_frames) + ".txt") as f:  # also change "backward_forward_" to "forward_backward_txt" if image displayed mirrored
             for line in f:
                 matrix_ino.write(line)
                 print(line)
